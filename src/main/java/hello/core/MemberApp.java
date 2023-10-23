@@ -7,6 +7,7 @@ import hello.core.member.MemberServiceImpl;
 
 public class MemberApp {
 
+    // psvm
     // 순수 자바로만 실행되는 테스트 로직 => Junit으로 테스트(test 패키지에서 진행)
     public static void main(String[] args) {
         MemberService memberService = new MemberServiceImpl();
