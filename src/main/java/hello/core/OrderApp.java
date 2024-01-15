@@ -12,8 +12,11 @@ public class OrderApp {
 
     // order 서비스가 제대로 동작하는지 확인해보자! (Junit 익숙해지기 전)
     public static void main(String[] args) {
-        MemberService memberService = new MemberServiceImpl();
-        OrderService orderService = new OrderserviceImpl();
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService();
+        OrderService orderService = appConfig.orderService();
+//        MemberService memberService = new MemberServiceImpl();
+//        OrderService orderService = new OrderserviceImpl();
 
         Long memberId = 1L;
         Member member = new Member(memberId, "memberA", Grade.VIP);

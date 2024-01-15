@@ -9,11 +9,14 @@ import hello.core.member.MemoryMemberRepository;
 
 public class OrderserviceImpl implements OrderService{
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
-//    private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
-//    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
-//    추상클래스(인터페이스)에만 의존하도록 변경
-    private DiscountPolicy discountPolicy;
+    //    추상클래스(인터페이스)에만 의존하도록 변경
+    private final MemberRepository memberRepository;
+    private final DiscountPolicy discountPolicy; // final 선언되어있으면 기본할당이든 생성자인든 할당이되어야함!
+
+    public OrderserviceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
