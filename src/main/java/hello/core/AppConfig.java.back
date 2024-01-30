@@ -1,7 +1,6 @@
 package hello.core;
 
 import hello.core.discount.DiscountPolicy;
-import hello.core.discount.FixDiscountPolicy;
 import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemberService;
@@ -9,23 +8,12 @@ import hello.core.member.MemberServiceImpl;
 import hello.core.member.MemoryMemberRepository;
 import hello.core.order.OrderService;
 import hello.core.order.OrderserviceImpl;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * 1. 어플리케이션의 전체 동작 방식을 구성(config)하기 위해, **구현 객체를 생성**하고 **연결**하는 책임을 가지는 별도의 설정클래스 만들기
  * 2. **역할**과 **구현**이 잘 드러나게 바꾸기!
  */
-
-/**
- * ### 스프링으로 전환하기 ###
- * - @Configuration 어노테이션 추가
- *    - 어플리케이션 구성정보를 설정함을 의미
- * - 메소드에 @Bean 어노테이션 추가
- *    - Spring 컨테이너에 등록 됨
- */
-@Configuration
-public class AppConfig {
+public class AppConfig2 {
     /**
      * 2 AppConfig 리팩토링 전
      * - 역할이 명확하지 않고 중복된 코드들이 있음
@@ -45,24 +33,20 @@ public class AppConfig {
      */
 
     /* MemberService 역할 */
-    @Bean
     public MemberService memberService(){
         // 생성자 주입
 //        return new MemberServiceImpl(new MemoryMemberRepository());
         return new MemberServiceImpl(memberRepository());
     }
     /* MemberRepository 역할 */
-    @Bean
-    public MemberRepository memberRepository() {
+    private MemberRepository memberRepository() {
         return new MemoryMemberRepository();
     }
     /* OrderService 역할 */
-    @Bean
     public OrderService orderService(){
         return new OrderserviceImpl(memberRepository(), discountPolicy());
     }
     /* DicountPolicy 역할 */
-    @Bean
     public DiscountPolicy discountPolicy(){
 //        return new FixDiscountPolicy();
         return new RateDiscountPolicy();
