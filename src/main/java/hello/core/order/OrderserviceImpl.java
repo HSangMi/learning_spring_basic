@@ -6,13 +6,17 @@ import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrderserviceImpl implements OrderService{
 
     //    추상클래스(인터페이스)에만 의존하도록 변경
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy; // final 선언되어있으면 기본할당이든 생성자인든 할당이되어야함!
 
+    @Autowired
     public OrderserviceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
