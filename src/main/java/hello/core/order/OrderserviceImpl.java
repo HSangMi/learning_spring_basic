@@ -8,6 +8,7 @@ import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,12 +19,12 @@ public class OrderserviceImpl implements OrderService{
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy; // final 선언되어있으면 기본할당이든 생성자인든 할당이되어야함!
 
-    // Autowired 주입 시, 빈이 2개 이상인 경우, 필드이름으로 매칭 (rateDiscountPolicy)
-    // (참고, appConfig.xml에 discountPolicy이름으로 bean이 등록되어있어서 전체테스트코드는 실패)
+    // Autowired 주입 시, 빈이 2개 이상인 경우, @Qualifier 사용
+    // 지정하는 추가적인 구분자이지, bean이름이 바뀌는 것은 아님
     @Autowired
-    public OrderserviceImpl(MemberRepository memberRepository, DiscountPolicy rateDiscountPolicy) {
+    public OrderserviceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy")DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
-        this.discountPolicy = rateDiscountPolicy;
+        this.discountPolicy = discountPolicy;
     }
 
     @Override
