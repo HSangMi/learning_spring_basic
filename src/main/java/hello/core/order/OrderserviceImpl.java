@@ -19,10 +19,9 @@ public class OrderserviceImpl implements OrderService{
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy; // final 선언되어있으면 기본할당이든 생성자인든 할당이되어야함!
 
-    // Autowired 주입 시, 빈이 2개 이상인 경우, @Qualifier 사용
-    // 지정하는 추가적인 구분자이지, bean이름이 바뀌는 것은 아님
+    // Autowired 주입 시, 빈이 2개 이상인 경우, @Primary 사용
     @Autowired
-    public OrderserviceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy")DiscountPolicy discountPolicy) {
+    public OrderserviceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
