@@ -22,7 +22,7 @@ public class BeanLifeCycleTest {
     @Configuration
     static class LifeCycleConfig {
 
-        @Bean(initMethod = "init", destroyMethod = "close")
+        @Bean //(initMethod = "init", destroyMethod = "close")
         // 호출로 반환된 결과물이 bean으로 등록, bean이름은 networkClient
         public NetworkClient networkClient() {
             NetworkClient networkClient = new NetworkClient();

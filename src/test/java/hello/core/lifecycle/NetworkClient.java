@@ -1,6 +1,9 @@
 package hello.core.lifecycle;
 
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 // InitializingBean(초기화 빈) 인터페이스 상속
 // DisposableBean
 public class NetworkClient{
@@ -24,6 +27,7 @@ public class NetworkClient{
     }
 
     // 의존관계 주입이 끝나면 실행하는 메서드
+    @PostConstruct
     public void init() {
         System.out.println("# NetworkClient.init ");
         connect();
@@ -31,6 +35,7 @@ public class NetworkClient{
     }
 
     // 소멸 전 호출되는 메소드
+    @PreDestroy
     public void close() {
         System.out.println("# NetworkClient.close");
         disconnect();
