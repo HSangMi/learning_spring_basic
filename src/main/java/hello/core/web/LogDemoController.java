@@ -15,14 +15,19 @@ import javax.servlet.http.HttpServletRequest;
 public class LogDemoController {
 
     private final LogDemoService logDemoService;
+    // 방법 1. Provider 사용
     // MyLogger가 아닌 Dependency Lookup을 할 수 있는 Provider가 주입
-    private final ObjectProvider<MyLogger> myLoggerProvider;
+//    private final ObjectProvider<MyLogger> myLoggerProvider;
+
+    // 방법 2. MyLogger에 Proxy 설정
+    private final MyLogger myLogger;
+
 
     @RequestMapping("log-demo")
     @ResponseBody
     public String logDemo(HttpServletRequest request) {
-        MyLogger myLogger = myLoggerProvider.getObject();
         String requestURL = request.getRequestURL().toString();
+        System.out.println("myLogger = " + myLogger);
         myLogger.setRequestURL(requestURL);
 
         myLogger.log("controller test");
